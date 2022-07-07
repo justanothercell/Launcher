@@ -1,0 +1,1 @@
+D:\Files\Coding\Java\Intellij\GladiatronLauncher\venv\Scripts\python.exe D:/Files/Coding/Java/Intellij/GladiatronLauncher/python/upload_application.py
