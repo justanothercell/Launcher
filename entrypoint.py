@@ -14,7 +14,7 @@ def entry():
         os.system('git fetch --all || (cd .. ; rm launcher - r ; git clone https://github.com/DragonFIghter603/Launcher.git ; cd Launcher)')
         os.system('git reset --hard origin/main')
 
-    os.system('start python launcher/cp_entry.py')
+    os.system('start python cp_entry.py')
 
 
 if __name__ == '__main__':
