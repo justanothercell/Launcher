@@ -3,11 +3,6 @@ import requests
 
 
 def entry():
-    if not os.path.exists('Launcher'):
-        os.mkdir('Launcher')
-
-    os.chdir('Launcher')
-
     sha = requests.get('https://api.github.com/repos/DragonFIghter603/Launcher/commits/main').json()['sha']
 
     if not os.path.exists('sha1'):
@@ -18,6 +13,9 @@ def entry():
         if sha_file.read().strip() != sha:
             sha_file.write(sha)
 
+            if not os.path.exists('Launcher'):
+                os.mkdir('Launcher')
+            os.chdir('Launcher')
             if os.name == 'nt':
                 os.system('git fetch --all || (cd .. & rmdir launcher /s /q & git clone https://github.com/DragonFIghter603/Launcher.git & cd Launcher)')
                 os.system('git reset --hard origin/main')
