@@ -1,6 +1,8 @@
 import json
 import os
 import shutil
+import traceback
+
 from jinja2 import Template
 
 
@@ -58,6 +60,7 @@ def build():
         print()
         print('Aborting due to error:')
         print(repr(e))
+        print(traceback.format_exc())
         print()
     finally:
         # reset pom
