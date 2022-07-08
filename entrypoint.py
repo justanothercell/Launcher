@@ -41,7 +41,7 @@ def entry():
         else:
             shutil.copy('Launcher/config.json', 'config.json')
         print('Building')
-        __import__('Launcher.build_launcher').build()
+        __import__('Launcher.build_launcher').build_launcher.build()
         print('Finished updating')
         print()
 
