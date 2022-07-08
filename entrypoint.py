@@ -19,9 +19,6 @@ def entry():
     if read_sha != sha:
         print('Updating...')
 
-        with open('sha', 'w') as sha_file:
-            sha_file.write(sha)
-
         if not os.path.exists('Launcher'):
             os.mkdir('Launcher')
         os.chdir('Launcher')
@@ -42,6 +39,9 @@ def entry():
             shutil.copy('Launcher/config.json', 'config.json')
         print('Building')
         __import__('Launcher.build_launcher').build_launcher.build()
+        with open('sha', 'w') as sha_file:
+            sha_file.write(sha)
+        print('Updated sha in sha file')
         print('Finished updating')
         print()
 
