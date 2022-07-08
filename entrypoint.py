@@ -29,7 +29,6 @@ def entry():
         else:
             os.system('git fetch --all || (cd .. ; rm launcher - r ; git clone https://github.com/DragonFIghter603/Launcher.git ; cd Launcher)')
             os.system('git reset --hard origin/main')
-        os.chdir('..')
         print()
         print('Updating')
         shutil.copy('Launcher/entrypoint.py', 'entrypoint.py')
@@ -39,6 +38,8 @@ def entry():
             shutil.copy('Launcher/config.json', 'config.json')
         print('Building')
         __import__('Launcher.build_launcher').build_launcher.build()
+        print()
+        os.chdir('..')
         with open('sha', 'w') as sha_file:
             sha_file.write(sha)
         print('Updated sha in sha file')
