@@ -3,6 +3,7 @@ import os
 import shutil
 from jinja2 import Template
 
+
 def build():
     try:
         print('=== Building Installer ===')
@@ -17,6 +18,8 @@ def build():
             java_path = config['java_path']
             launcher_name = launcher_config['name']
             launcher_title = launcher_config['name']
+            icon_png = launcher_config['icon_png']
+            icon_ico = launcher_config['icon_ico']
         except KeyError as e:
             print('Error while loading config.json:')
             print(f'Expected key {e}')
@@ -24,7 +27,9 @@ def build():
             raise e
         print()
 
-        #
+        print('Copying resources')
+        shutil.copy('../'+icon_png, 'src/main/resources/icon.png')
+        shutil.copy('../'+icon_ico, 'src/main/resources/icon.ico')
         # setup pom
         print('Setting up pom.xml with variables')
         print('Copying pom.xml to pom.copy.mxl for later reset')
