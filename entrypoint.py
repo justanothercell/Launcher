@@ -31,11 +31,11 @@ def entry():
             os.system('git reset --hard origin/main')
         print()
         print('Updating')
-        shutil.copy('Launcher/entrypoint.py', 'entrypoint.py')
+        shutil.copy('entrypoint.py', '../entrypoint.py')
         if os.path.isfile('config.json'):
-            shutil.copy('config.json', 'Launcher/config.json')
+            shutil.copy('../config.json', 'config.json')
         else:
-            shutil.copy('Launcher/config.json', 'config.json')
+            shutil.copy('config.json', '../config.json')
         print('Building')
         __import__('Launcher.build_launcher').build_launcher.build()
         print()
