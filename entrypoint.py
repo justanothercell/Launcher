@@ -30,7 +30,7 @@ def entry():
             os.system('git fetch --all || (cd .. ; rm launcher - r ; git clone https://github.com/DragonFIghter603/Launcher.git ; cd Launcher)')
             os.system('git reset --hard origin/main')
         print('Launching update script...')
-        os.system('start python cp_entry.py')
+        os.system('python cp_entry.py')
         print('Exiting')
         exit(0)
 
