@@ -32,7 +32,7 @@ def entry():
         print()
         print('Updating')
         shutil.copy('entrypoint.py', '../entrypoint.py')
-        if os.path.isfile('config.json'):
+        if os.path.isfile('../config.json'):
             shutil.copy('../config.json', 'config.json')
         else:
             shutil.copy('config.json', '../config.json')
