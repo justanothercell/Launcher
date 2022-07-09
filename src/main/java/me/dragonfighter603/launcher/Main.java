@@ -107,7 +107,8 @@ public class Main {
                 writer.write(applicationVersion);
                 writer.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Helper.showException(e);
+                System.exit(1);
             }
 
         }
