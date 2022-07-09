@@ -85,7 +85,6 @@ public class Gui {
     }
 
     private void createUIComponents() {
-        title = new JLabel();
         title.setText(Data.get("title"));
     }
 }
