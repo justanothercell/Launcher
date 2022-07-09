@@ -7,6 +7,7 @@ from jinja2 import Template
 
 
 def build():
+    exep = None
     try:
         print('=== Building Installer ===')
         print()
@@ -62,6 +63,7 @@ def build():
         print(repr(e))
         print(traceback.format_exc())
         print()
+        exep = e
     finally:
         # reset pom
         if os.path.exists('pom.copy.xml'):
@@ -71,6 +73,10 @@ def build():
             os.remove('pom.copy.xml')
             print()
         print('Finished!')
+        if exep != None:
+            return f'{launcher_name}.exe'
+        else:
+            raise exep
 
 
 if __name__ == '__main__':

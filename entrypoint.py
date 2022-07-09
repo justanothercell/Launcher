@@ -3,8 +3,12 @@ import shutil
 
 import requests
 
+from hashpath import path_checksum
+
 
 def entry():
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
     print('Getting origin last commit sha...')
     sha = requests.get('https://api.github.com/repos/DragonFIghter603/Launcher/commits/main').json()['sha']
 
@@ -36,8 +40,24 @@ def entry():
             shutil.copy('../config.json', 'config.json')
         else:
             shutil.copy('config.json', '../config.json')
-        print('Building')
-        __import__('Launcher.build_launcher').build_launcher.build()
+        print()
+        print('Checking if need to rebuild...')
+        try:
+            with open('../checksum', 'r') as checksum_file:
+                read_checksum = checksum_file.read().strip()
+        except FileNotFoundError:
+            read_checksum = 'null'
+        checksum = path_checksum(["Launcher/src", "pom.xml"])
+        print(f'Comparing directory checksums of ["Launcher/src", "pom.xml"] {checksum} and {read_checksum}')
+        if read_checksum != checksum:
+            print('Building...')
+            fname = __import__('Launcher.build_launcher').build_launcher.build()
+            print('Copying executable to static')
+            if not os.path.exists('Launcher'):
+                os.mkdir('Launcher')
+            shutil.copy(f'target/{fname}', f'../static/{fname}')
+            with open('../checksum', 'w') as checksum_file:
+                checksum_file.write(checksum)
         print()
         os.chdir('..')
         with open('sha', 'w') as sha_file:

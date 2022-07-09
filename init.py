@@ -6,6 +6,7 @@ import requests
 
 if __name__ == '__main__':
     print('Starting...')
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
     if not os.path.exists('res'):
         os.mkdir('res')
     print('Fetching assets...')
