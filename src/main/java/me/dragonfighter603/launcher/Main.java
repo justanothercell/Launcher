@@ -34,7 +34,7 @@ public class Main {
     public static void run(){
         Gui gui = new Gui();
 
-        JFrame root = new JFrame("Gladiatron Launcher");
+        JFrame root = new JFrame(Data.get("title"));
         root.setContentPane(gui.mainPanel);
         root.setResizable(false);
         try {

@@ -13,7 +13,7 @@ public class Gui {
     public JLabel title;
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Gui");
+        JFrame frame = new JFrame();
         frame.setContentPane(new Gui().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -82,5 +82,10 @@ public class Gui {
      */
     public JComponent $$$getRootComponent$$$() {
         return mainPanel;
+    }
+
+    private void createUIComponents() {
+        title = new JLabel();
+        title.setText(Data.get("title"));
     }
 }

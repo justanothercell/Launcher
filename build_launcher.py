@@ -2,6 +2,7 @@ import json
 import os
 import shutil
 import traceback
+import hashpath
 
 from jinja2 import Template
 
@@ -9,11 +10,7 @@ from jinja2 import Template
 def launcher_version():
     with open('Launcher/src/main/resources/version', 'r') as version_file:
         lv = version_file.read().strip()
-    if os.path.isfile('checksum'):
-        with open('checksum', 'r') as checksum_file:
-            lv += '+' + checksum_file.read().strip()
-    else:
-        lv += '+null'
+    lv += '+' + hashpath.path_checksum(['Launcher/src', 'Launcher/pom.xml', 'config.json'])
     return lv
 
 
