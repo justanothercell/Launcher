@@ -36,6 +36,7 @@ def entry():
         print()
         print('Updating')
         shutil.copy('entrypoint.py', '../entrypoint.py')
+        shutil.copy('flask_app.py', '../flask_app.py')
         if os.path.isfile('../config.json'):
             shutil.copy('../config.json', 'config.json')
         else:
