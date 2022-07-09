@@ -8,7 +8,13 @@ def path_checksum(paths):
     def _update_checksum(checksum, dirname, filenames):
         for filename in sorted(filenames):
             path = path_join(dirname, filename)
-            if isfile(path):
+            if isdir(path):
+                for bdir, dirs, files in walk(path):
+                    for d in dirs:
+                        _update_checksum(chksum, bdir, d)
+                    for f in files:
+                        _update_checksum(chksum, bdir, f)
+            elif isfile(path):
                 checksum.update(path)
                 print(path)
                 fh = open(path, 'rb')
@@ -21,10 +27,14 @@ def path_checksum(paths):
     chksum = hashlib.sha1()
 
     for path in sorted([normpath(f) for f in paths]):
-        print('is?', path, path_exists(path), os.getcwd())
+        print(path_exists(path), isdir(path), isfile(path))
         if path_exists(path):
             if isdir(path):
-                walk(path, _update_checksum, chksum)
+                for bdir, dirs, files in walk(path):
+                    for d in dirs:
+                        _update_checksum(chksum, bdir, d)
+                    for f in files:
+                        _update_checksum(chksum, bdir, f)
             elif isfile(path):
                 _update_checksum(chksum, dirname(path), basename(path))
 
