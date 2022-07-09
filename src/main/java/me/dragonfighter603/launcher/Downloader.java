@@ -1,4 +1,4 @@
-package me.draginfighter603.launcher;
+package me.dragonfighter603.launcher;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
