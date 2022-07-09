@@ -1,6 +1,6 @@
 from flask import Flask, send_file, request, redirect
 import json
-import build_launcher
+import Launcher.build_launcher
 
 
 app = Flask(__name__)
