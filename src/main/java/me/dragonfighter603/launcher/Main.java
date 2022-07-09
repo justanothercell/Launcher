@@ -59,20 +59,9 @@ public class Main {
 
         // === LAUNCHER UPDATE ===
         JSONObject launcherVersion = Http.jsonHttpGet(Data.get("server") + "/get_version?file=launcher");
-        String ownLauncherVersion = "0.0.0";
-        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("version"))))) {
-            StringBuilder resultStringBuilder = new StringBuilder();
-            String line;
-            while ((line = fileReader.readLine()) != null) {
-                resultStringBuilder.append(line).append("\n");
-            }
-            ownLauncherVersion = resultStringBuilder.toString();
-        } catch (IOException e) {
-            Helper.showException(e);
-        }
-        if (!ownLauncherVersion.trim().equals(launcherVersion.getString("version"))) {
+        if (!Data.get("full_version").equals(launcherVersion.getString("version"))) {
             gui.statusLabel.setText("<html>Found launcher version to update!<br>" +
-                    "(" + ownLauncherVersion + " -> " + launcherVersion.getString("version") + ")<br>" +
+                    "(" + Data.get("full_version") + " -> " + launcherVersion.getString("version") + ")<br>" +
                     "Downloading...</html>");
             Downloader.download(Data.get("server") + "/download?file=launcher", "data/updater.exe", gui.progressBar);
             Runtime rt = Runtime.getRuntime();
