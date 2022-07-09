@@ -21,7 +21,42 @@ If anything breaks during updating, you can fix it 95% of the time by copying
 Note that this only works on servers with persistent storage, 
 this is not compatible docker and similar! 
 
-##### Note: After step 3, the root folder should look a bit like this:
+if you serve your application locally, `flask_app.py` could look a bit like this after step 4:
+```py
+from Launcher.app import app
+import entrypoint
+from flask import send_file
+import json
+
+entrypoint.entry()
+
+with open('static/appver.txt') as appver_file:
+  appver = appver_file.read().strip()
+
+@app.route('/appver')
+def appver():
+    return json.dumps({'success': True, 'version': appver}), 200
+
+
+@app.route('/app_download')
+def appver():
+    return send_file('../static/application.zip')
+
+if __name__ == '__main__':
+    app.run()
+```
+
+corresponding `config.json`:
+```json
+{
+    "app":  {
+        "download_url": "/app_download",
+        "version_url": "/appver"
+    }
+}
+```
+
+##### Note: After step 2, the root folder should look more or less like this:
 - `__pycache__/`
 - `Launcher/`
 - `res/`
@@ -34,10 +69,12 @@ this is not compatible docker and similar!
 - `requirements.txt`
 - `sha`
 
-### relevant endpoints
-`/download?file=launcher` - redirect to this url to let people download the launcher
-`/download?file=application` - used internally, only use if necessary, e.g. launcher doesn't work
-
+### reserved endpoints
+- `/download?file=launcher` - redirect to this url to let people download the launcher
+##### internal use: only use when you know what you're doing
+- `/download?file=application`
+- `/get_version?file=launcher`
+- `/get_version?file=application`
 
 ### config.json
 This file appears after init in root. All fields are mandatory unless

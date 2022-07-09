@@ -13,7 +13,7 @@ try:
     app_config = config['app']
     launcher_name = launcher_config['name']
     app_download_url = app_config['download_url']
-    app_version_url = app_config['download_url']
+    app_version_url = app_config['version_url']
 except KeyError as e:
     print('Error while loading config.json:')
     print(f'Expected key {e}')
@@ -21,8 +21,10 @@ except KeyError as e:
     raise e
 print()
 
+with open('Launcher/src/main/resources/version', 'r') as version_file:
+    launcher_version = version_file.read().strip()
 with open('checksum', 'r') as checksum_file:
-    launcher_version = checksum_file.read().strip()
+    launcher_version += '+' + checksum_file.read().strip()
 
 
 @app.route('/download')
@@ -32,11 +34,6 @@ def download():
     if request.args.get('file') == 'application':
         return redirect(app_download_url)
     return json.dumps({'success': False, 'reason': 'bad request'}), 400
-
-
-@app.route('/verify')
-def verify():
-    return json.dumps({'success': True}), 200
 
 
 @app.route('/get_version')
