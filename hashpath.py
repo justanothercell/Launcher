@@ -8,7 +8,7 @@ def path_checksum(paths):
     def _update_checksum(checksum, dirname, filenames):
         for filename in sorted(filenames):
             path = path_join(dirname, filename)
-            checksum.update(path)
+            checksum.update(path.encode('utf-8'))
             print(path)
             fh = open(path, 'rb')
             while 1:
