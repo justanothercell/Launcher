@@ -13,20 +13,29 @@ import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
-        FlatDarkLaf.setup();
+        try {
+            FlatDarkLaf.setup();
 
-        String action = "run";
+            File dataDir = new File("data");
+            if (!dataDir.exists()) {
+                dataDir.mkdir();
+            }
 
-        if(args.length > 0) action = args[args.length-1];
+            String action = "run";
 
-        if(action.equals("run")) {
-            run();
+            if (args.length > 0) action = args[args.length - 1];
+
+            if (action.equals("run")) {
+                run();
+            } else if (action.equals("overrideLauncher")) {
+                overrideLauncher();
+            } else {
+                Helper.showException(new IllegalArgumentException("Command line argument 1 " + action + "\ndoes not seem to be valid."));
+                System.exit(1);
+            }
         }
-        else if(action.equals("overrideLauncher")) {
-            overrideLauncher();
-        }
-        else{
-            Helper.showException(new IllegalArgumentException("Command line argument 1 " + action + "\ndoes not seem to be valid."));
+        catch (Exception e){
+            Helper.showException(e);
             System.exit(1);
         }
     }

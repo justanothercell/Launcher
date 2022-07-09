@@ -10,7 +10,10 @@ public class Helper {
             trace.append("\n").append(st[i]);
         }
         JOptionPane.showMessageDialog(null,
-                e + "\n\nThis might cause unexpected behaviour.\nPlease report immediately!\n\n" + trace,
+                e + "\n\nThis might cause unexpected behaviour.\n" +
+                        "(An euphemism for \"shit, this broke everything and i shall now crash\")\n" +
+                        "Terribly sorry, we'll get right to fixing that..." +
+                        "Please report immediately!\n\n" + trace,
                 "Error while reading config.json",
                 JOptionPane.ERROR_MESSAGE);
     }
