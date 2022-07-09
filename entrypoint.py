@@ -50,7 +50,7 @@ def entry():
             sha_file.write(sha)
         print()
         print('### Rerunning the new entrypoint just in case ###')
-        __import__('Launcher.entrypoint').entry()
+        __import__('Launcher.entrypoint').entrypoint.entry()
         print('### Finished rerunning the new entrypoint ###')
         print()
     print('Checking if need to rebuild...')
