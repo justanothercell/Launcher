@@ -1,4 +1,5 @@
 import hashlib
+import os
 from os.path import normpath, isdir, isfile, dirname, basename, exists as path_exists, join as path_join
 from os import walk
 
@@ -20,7 +21,7 @@ def path_checksum(paths):
     chksum = hashlib.sha1()
 
     for path in sorted([normpath(f) for f in paths]):
-        print('is?', path)
+        print('is?', path, path_exists(path), os.getcwd())
         if path_exists(path):
             if isdir(path):
                 walk(path, _update_checksum, chksum)
