@@ -9,7 +9,7 @@ from jinja2 import Template
 def launcher_version():
     with open('Launcher/src/main/resources/version', 'r') as version_file:
         lv = version_file.read().strip()
-    if not os.path.isfile('checksum'):
+    if os.path.isfile('checksum'):
         with open('checksum', 'r') as checksum_file:
             lv += '+' + checksum_file.read().strip()
     else:
