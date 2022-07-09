@@ -80,7 +80,7 @@ public class Main {
         af.mkdirs();
         String applicationVersion = "0.0.0";
         try {
-            applicationVersion = new String(Files.readAllBytes(Paths.get("version")), StandardCharsets.UTF_8);
+            applicationVersion = new String(Files.readAllBytes(Paths.get("data/version")), StandardCharsets.UTF_8);
         } catch (IOException ignored) {
 
         }
@@ -103,7 +103,7 @@ public class Main {
                     "finished!</html>");
 
             try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter("version", true));
+                BufferedWriter writer = new BufferedWriter(new FileWriter("data/version", true));
                 writer.write(applicationVersion);
                 writer.close();
             } catch (IOException e) {
