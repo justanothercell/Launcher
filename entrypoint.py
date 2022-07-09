@@ -41,31 +41,29 @@ def entry():
         else:
             shutil.copy('config.json', '../config.json')
         print()
-        print('Checking if need to rebuild...')
-        try:
-            with open('../checksum', 'r') as checksum_file:
-                read_checksum = checksum_file.read().strip()
-        except FileNotFoundError:
-            read_checksum = 'null'
-        checksum = path_checksum(["Launcher/src", "pom.xml"])
-        print(f'Comparing directory checksums of ["Launcher/src", "pom.xml"] {checksum} and {read_checksum}')
-        if read_checksum != checksum:
-            print('Building...')
-            fname = __import__('Launcher.build_launcher').build_launcher.build()
-            print('Copying executable to static')
-            if not os.path.exists('Launcher'):
-                os.mkdir('Launcher')
-            shutil.copy(f'target/{fname}', f'../static/{fname}')
-            with open('../checksum', 'w') as checksum_file:
-                checksum_file.write(checksum)
-        print()
         os.chdir('..')
-        with open('sha', 'w') as sha_file:
-            sha_file.write(sha)
         print('Updated sha in sha file')
         print('Finished updating')
+        with open('sha', 'w') as sha_file:
+            sha_file.write(sha)
+    print('Checking if need to rebuild...')
+    try:
+        with open('checksum', 'r') as checksum_file:
+            read_checksum = checksum_file.read().strip()
+    except FileNotFoundError:
+        read_checksum = 'null'
+    checksum = path_checksum(["Launcher/src", "Launcher/pom.xml"])
+    print(f'Comparing directory checksums of ["Launcher/src", "Launcher/pom.xml"] {checksum} and {read_checksum}')
+    if read_checksum != checksum:
+        print('Building...')
+        fname = __import__('Launcher.build_launcher').build_launcher.build()
+        print('Copying executable to static')
+        if not os.path.exists('static'):
+            os.mkdir('static')
+        shutil.copy(f'Launcher/target/{fname}', f'static/{fname}')
+        with open('checksum', 'w') as checksum_file:
+            checksum_file.write(checksum)
         print()
-
     print('Continuing with main program...')
     print()
 

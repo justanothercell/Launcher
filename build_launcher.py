@@ -11,7 +11,7 @@ def build():
     try:
         print('=== Building Installer ===')
         print()
-
+        os.chdir('Launcher')
 
         print('Loading config.json')
         with open('config.json') as config_json:
@@ -69,11 +69,15 @@ def build():
         if os.path.exists('pom.copy.xml'):
             print('Resetting by copying pom.copy.xml back to pom.mxl')
             shutil.copy('pom.copy.xml', 'pom.xml')
-            print('Deleting pom.copy.xml')
+            print('Deleting and resetting...')
             os.remove('pom.copy.xml')
+            os.remove('src/main/resources/icon.png')
+            os.remove('src/main/resources/icon.ico')
+            os.chdir('Launcher')
             print()
+            os.chdir('..')
         print('Finished!')
-        if exep != None:
+        if exep is None:
             return f'{launcher_name}.exe'
         else:
             raise exep
