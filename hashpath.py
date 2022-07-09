@@ -5,9 +5,9 @@ from os import walk
 
 
 def path_checksum(paths):
-    def _update_checksum(checksum, dirname, filenames):
+    def _update_checksum(checksum, dname, filenames):
         for filename in sorted(filenames):
-            path = path_join(dirname, filename)
+            path = path_join(dname, filename)
             checksum.update(path.encode('utf-8'))
             print(path)
             fh = open(path, 'rb')
@@ -20,6 +20,7 @@ def path_checksum(paths):
     chksum = hashlib.sha1()
 
     for path in sorted([normpath(f) for f in paths]):
+        print("p", path)
         if path_exists(path):
             if isdir(path):
                 for bdir, dirs, files in walk(path):
