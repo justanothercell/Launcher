@@ -3,7 +3,7 @@ import shutil
 
 import requests
 
-from hashpath import path_checksum
+from Launcher.hashpath import path_checksum
 
 
 def entry():
