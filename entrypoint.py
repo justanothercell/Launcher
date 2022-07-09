@@ -7,8 +7,6 @@ from Launcher.hashpath import path_checksum
 
 
 def entry():
-    print('=== Entrypoint - Updater ===')
-    print()
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
     print('Getting origin last commit sha...')
