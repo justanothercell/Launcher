@@ -7,6 +7,8 @@ from Launcher.hashpath import path_checksum
 
 
 def entry():
+    print('=== Entrypoint - Updater ===')
+    print()
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
     print('Getting origin last commit sha...')
@@ -47,6 +49,10 @@ def entry():
         print('Finished updating')
         with open('sha', 'w') as sha_file:
             sha_file.write(sha)
+        print()
+        print('Rerunning the new entrypoint just in case')
+        __import__('entrypoint').entry()
+        print()
     print('Checking if need to rebuild...')
     try:
         with open('checksum', 'r') as checksum_file:
