@@ -49,10 +49,6 @@ def entry():
         with open('sha', 'w') as sha_file:
             sha_file.write(sha)
         print()
-        print('### Rerunning the new entrypoint just in case ###')
-        __import__('entrypoint').entry()
-        print('### Finished rerunning the new entrypoint ###')
-        print()
     print('Checking if need to rebuild...')
     try:
         with open('checksum', 'r') as checksum_file:
