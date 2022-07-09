@@ -19,7 +19,7 @@ def path_checksum(paths):
 
     chksum = hashlib.sha1()
 
-    for path in sorted([normpath(os.getcwd() + f) for f in paths]):
+    for path in sorted([normpath(os.getcwd() + '/' + f) for f in paths]):
         if path_exists(path):
             if isdir(path):
                 for bdir, dirs, files in walk(path):
