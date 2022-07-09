@@ -28,7 +28,7 @@ with open('checksum', 'r') as checksum_file:
 @app.route('/download')
 def download():
     if request.args.get('file') == 'launcher':
-        return send_file(f'static/{launcher_name}.exe')
+        return send_file(f'../static/{launcher_name}.exe')
     if request.args.get('file') == 'application':
         return redirect(app_download_url)
     return json.dumps({'success': False, 'reason': 'bad request'}), 400
