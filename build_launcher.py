@@ -73,9 +73,8 @@ def build():
             os.remove('pom.copy.xml')
             os.remove('src/main/resources/icon.png')
             os.remove('src/main/resources/icon.ico')
-            os.chdir('Launcher')
-            print()
             os.chdir('..')
+            print()
         print('Finished!')
         if exep is None:
             return f'{launcher_name}.exe'
