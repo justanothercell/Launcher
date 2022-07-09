@@ -38,7 +38,7 @@ def build():
             raise e
         print()
 
-        with open('src/main/resources/data.json') as data_file:
+        with open('src/main/resources/data.json', 'w') as data_file:
             json.dump({
                 'full_version': launcher_version(),
                 'name': launcher_name,
