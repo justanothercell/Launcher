@@ -23,7 +23,7 @@ except KeyError as e:
     raise e
 print()
 
-launcher_version = build_launcher.launcher_version()
+launcher_version = Launcher.build_launcher.launcher_version()
 
 
 @app.route('/download')
