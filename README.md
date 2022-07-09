@@ -21,9 +21,22 @@ If anything breaks during updating, you can fix it 95% of the time by copying
 Note that this only works on servers with persistent storage, 
 this is not compatible docker and similar! 
 
+##### Note: After step 3, the root folder should look a bit like this:
+- `__pycache__/`
+- `Launcher/`
+- `res/`
+- `static/`
+- `checksum`
+- `config.json`
+- `entrypoint.py`
+- `flask_app.py`
+- `init.py`
+- `requirements.txt`
+- `sha`
 
 ### relevant endpoints
 `/download?file=launcher` - redirect to this url to let people download the launcher
+`/download?file=application` - used internally, only use if necessary, e.g. launcher doesn't work
 
 
 ### config.json
