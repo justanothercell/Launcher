@@ -1,5 +1,6 @@
 from flask import Flask, send_file, request, redirect
 import json
+import build_launcher
 
 
 app = Flask(__name__)
@@ -14,6 +15,7 @@ try:
     launcher_name = launcher_config['name']
     app_download_url = app_config['download_url']
     app_version_url = app_config['version_url']
+    app_executable = app_config['executable']
 except KeyError as e:
     print('Error while loading config.json:')
     print(f'Expected key {e}')
@@ -21,10 +23,7 @@ except KeyError as e:
     raise e
 print()
 
-with open('Launcher/src/main/resources/version', 'r') as version_file:
-    launcher_version = version_file.read().strip()
-with open('checksum', 'r') as checksum_file:
-    launcher_version += '+' + checksum_file.read().strip()
+launcher_version = build_launcher.launcher_version()
 
 
 @app.route('/download')

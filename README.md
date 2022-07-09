@@ -31,15 +31,15 @@ import json
 entrypoint.entry()
 
 with open('static/appver.txt') as appver_file:
-  appver = appver_file.read().strip()
+    app_ver = appver_file.read().strip()
 
 @app.route('/appver')
 def appver():
-    return json.dumps({'success': True, 'version': appver}), 200
+    return json.dumps({'success': True, 'version': app_ver}), 200
 
 
 @app.route('/app_download')
-def appver():
+def app_download():
     return send_file('../static/application.zip')
 
 if __name__ == '__main__':
@@ -93,7 +93,8 @@ explicitly said so.
         // url that returns the file in zip format
         "download_url": "https://www.url.com/application.zip",
         //url that returns: {"success": true, "version":"x.y.z"}
-        "version_url": "https://www.url.com/version"
+        "version_url": "https://www.url.com/version",
+        "executable": "executable.exe"
     }
 }
 ```

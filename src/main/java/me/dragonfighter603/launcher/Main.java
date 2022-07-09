@@ -34,8 +34,6 @@ public class Main {
     public static void run(){
         Gui gui = new Gui();
 
-        String token = Config.getOrDemandUserToken();
-
         JFrame root = new JFrame("Gladiatron Launcher");
         root.setContentPane(gui.mainPanel);
         root.setResizable(false);
@@ -51,7 +49,7 @@ public class Main {
         gui.statusLabel.setText("Fetching data...");
 
         // === LAUNCHER UPDATE ===
-        JSONObject launcherVersion = Http.jsonHttpGet(Config.BASE_URL + "/get_version?id=" + token + "&file=launcher");
+        JSONObject launcherVersion = Http.jsonHttpGet(Data.get("server") + "/get_version?file=launcher");
         String ownLauncherVersion = "0.0.0";
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("version"))))) {
             StringBuilder resultStringBuilder = new StringBuilder();
@@ -67,7 +65,7 @@ public class Main {
             gui.statusLabel.setText("<html>Found launcher version to update!<br>" +
                     "(" + ownLauncherVersion + " -> " + launcherVersion.getString("version") + ")<br>" +
                     "Downloading...</html>");
-            Downloader.download(Config.BASE_URL + "/download?id="+token+"&file=launcher", "data/updater.exe", gui.progressBar);
+            Downloader.download(Data.get("server") + "/download?file=launcher", "data/updater.exe", gui.progressBar);
             Runtime rt = Runtime.getRuntime();
             try {
                 rt.exec("cmd /c data\\updater.exe overrideLauncher");
@@ -85,7 +83,7 @@ public class Main {
         for(String file : Objects.requireNonNull(af.list())) {
             applicationFolder = file;
         }
-        JSONObject gameVersion = Http.jsonHttpGet(Config.BASE_URL + "/get_version?id=" + token + "&file=application");
+        JSONObject gameVersion = Http.jsonHttpGet(Data.get("server") + "/get_version?file=application");
         if (!applicationFolder.equals(gameVersion.getString("version"))) {
             gui.statusLabel.setText("<html>Found game version to update!<br>" +
                     "(" + applicationFolder + " -> " + gameVersion.getString("version") + ")<br>" +
@@ -94,7 +92,7 @@ public class Main {
             gui.statusLabel.setText("<html>Found game version to update!<br>" +
                     "(" + applicationFolder + " -> " + gameVersion.getString("version") + ")<br>" +
                     "Downloading...</html>");
-            Downloader.download(Config.BASE_URL + "/download?id=" + token + "&file=application", "data/application.zip", gui.progressBar);
+            Downloader.download(Data.get("server") + "/download?file=application", "data/application.zip", gui.progressBar);
             gui.statusLabel.setText("<html>Found game version to update!<br>" +
                     "(" + applicationFolder + " -> " + gameVersion.getString("version") + ")<br>" +
                     "Unzipping...</html>");
@@ -108,8 +106,8 @@ public class Main {
         }
         Runtime rt = Runtime.getRuntime();
         try {
-            System.out.println("data\\application\\" + applicationFolder + "\\Gladiatron.exe " + token);
-            rt.exec("data\\application\\" + applicationFolder + "\\Gladiatron.exe " + token);
+            System.out.println("data\\application\\" + applicationFolder + "\\" + Data.get("application"));
+            rt.exec("data\\application\\" + applicationFolder + "\\" + Data.get("application"));
             System.exit(0);
         } catch (IOException e) {
             Helper.showException(e);

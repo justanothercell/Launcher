@@ -6,6 +6,14 @@ import traceback
 from jinja2 import Template
 
 
+def launcher_version():
+    with open('Launcher/src/main/resources/version', 'r') as version_file:
+        lv = version_file.read().strip()
+    with open('checksum', 'r') as checksum_file:
+        lv += '+' + checksum_file.read().strip()
+    return lv
+
+
 def build():
     exep = None
     try:
@@ -29,6 +37,13 @@ def build():
             print('Aborting!')
             raise e
         print()
+
+        with open('src/main/resources/data.json') as data_file:
+            json.dump({
+                'full_version': launcher_version(),
+                'name': launcher_name,
+                'title': launcher_title
+            }, data_file, indent=4)
 
         print('Copying resources')
         shutil.copy('../'+icon_png, 'src/main/resources/icon.png')
@@ -73,6 +88,7 @@ def build():
             os.remove('pom.copy.xml')
             os.remove('src/main/resources/icon.png')
             os.remove('src/main/resources/icon.ico')
+            os.remove('src/main/resources/data.json')
             os.chdir('..')
             print()
         print('Finished!')
