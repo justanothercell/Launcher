@@ -29,6 +29,7 @@ def build():
         try:
             launcher_config = config['launcher']
             java_path = config['java_path']
+            server_ip = config['server']
             launcher_name = launcher_config['name']
             launcher_title = launcher_config['name']
             icon_png = launcher_config['icon_png']
@@ -44,7 +45,8 @@ def build():
             json.dump({
                 'full_version': launcher_ver,
                 'name': launcher_name,
-                'title': launcher_title
+                'title': launcher_title,
+                "server": server_ip
             }, data_file, indent=4)
 
         print('Copying resources')

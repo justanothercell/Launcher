@@ -82,7 +82,7 @@ explicitly said so.
 ```json
 { 
     "java_path": "P:\\ath\\to\\java.exe",
-    "server": "https://www.thisserver.com",
+    "server": "https://www.thisserver.com:portIfRawIP",
     "launcher": {
         "name": "The name of the launcer file",
         "title": "Title displayed in the launcher",
