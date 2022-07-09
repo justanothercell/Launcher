@@ -28,12 +28,14 @@ def build():
             config = json.load(config_json)
         try:
             launcher_config = config['launcher']
+            app_config = config['app']
             java_path = config['java_path']
             server_ip = config['server']
             launcher_name = launcher_config['name']
             launcher_title = launcher_config['name']
             icon_png = launcher_config['icon_png']
             icon_ico = launcher_config['icon_ico']
+            app_executable = app_config['executable']
         except KeyError as e:
             print('Error while loading config.json:')
             print(f'Expected key {e}')
@@ -46,7 +48,8 @@ def build():
                 'full_version': launcher_ver,
                 'name': launcher_name,
                 'title': launcher_title,
-                "server": server_ip
+                "server": server_ip,
+                'executable': app_executable
             }, data_file, indent=4)
 
         print('Copying resources')

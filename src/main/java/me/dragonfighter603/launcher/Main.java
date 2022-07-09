@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -77,35 +78,42 @@ public class Main {
         // === GAME UPDATE ===
         File af = new File("data/application");
         af.mkdirs();
-        String applicationFolder = "0.0.0";
-        for(String file : Objects.requireNonNull(af.list())) {
-            applicationFolder = file;
+        String applicationVersion = "0.0.0";
+        try {
+            applicationVersion = new String(Files.readAllBytes(Paths.get("version")), StandardCharsets.UTF_8);
+        } catch (IOException ignored) {
+
         }
         JSONObject gameVersion = Http.jsonHttpGet(Data.get("server") + "/get_version?file=application");
-        if (!applicationFolder.equals(gameVersion.getString("version"))) {
+        if (!applicationVersion.trim().equals(gameVersion.getString("version"))) {
             gui.statusLabel.setText("<html>Found game version to update!<br>" +
-                    "(" + applicationFolder + " -> " + gameVersion.getString("version") + ")<br>" +
+                    "(" + applicationVersion + " -> " + gameVersion.getString("version") + ")<br>" +
                     "Downloading...</html>");
             purgeDirectory(new File("data/application"));
             gui.statusLabel.setText("<html>Found game version to update!<br>" +
-                    "(" + applicationFolder + " -> " + gameVersion.getString("version") + ")<br>" +
+                    "(" + applicationVersion + " -> " + gameVersion.getString("version") + ")<br>" +
                     "Downloading...</html>");
             Downloader.download(Data.get("server") + "/download?file=application", "data/application.zip", gui.progressBar);
             gui.statusLabel.setText("<html>Found game version to update!<br>" +
-                    "(" + applicationFolder + " -> " + gameVersion.getString("version") + ")<br>" +
+                    "(" + applicationVersion + " -> " + gameVersion.getString("version") + ")<br>" +
                     "Unzipping...</html>");
             Downloader.unzip("data/application.zip", "data/application", gui.progressBar);
             gui.statusLabel.setText("<html>Found game version to update!<br>" +
-                    "(" + applicationFolder + " -> " + gameVersion.getString("version") + ")<br>" +
+                    "(" + applicationVersion + " -> " + gameVersion.getString("version") + ")<br>" +
                     "finished!</html>");
-            for(String file : Objects.requireNonNull(new File("data/application").list())) {
-                applicationFolder = file;
+
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("version", true));
+                writer.write(applicationVersion);
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
         }
         Runtime rt = Runtime.getRuntime();
         try {
-            System.out.println("data\\application\\" + applicationFolder + "\\" + Data.get("application"));
-            rt.exec("data\\application\\" + applicationFolder + "\\" + Data.get("application"));
+            rt.exec("data\\application\\" + Data.get("executable"));
             System.exit(0);
         } catch (IOException e) {
             Helper.showException(e);

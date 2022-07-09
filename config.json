@@ -9,6 +9,7 @@
     },
     "app":  {
         "download_url": "",
-        "version_url": ""
+        "version_url": "",
+        "executable": "executable.exe"
     }
 }

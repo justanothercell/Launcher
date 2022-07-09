@@ -15,7 +15,6 @@ try:
     launcher_name = launcher_config['name']
     app_download_url = app_config['download_url']
     app_version_url = app_config['version_url']
-    app_executable = app_config['executable']
 except KeyError as e:
     print('Error while loading config.json:')
     print(f'Expected key {e}')
