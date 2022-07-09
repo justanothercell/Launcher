@@ -36,7 +36,8 @@ def entry():
         print()
         print('Updating')
         shutil.copy('entrypoint.py', '../entrypoint.py')
-        shutil.copy('flask_app.py', '../flask_app.py')
+        if not os.path.isfile('../flask_app.py'):
+            shutil.copy('flask_app.py', '../flask_app.py')
         if os.path.isfile('../config.json'):
             shutil.copy('../config.json', 'config.json')
         else:
@@ -48,8 +49,9 @@ def entry():
         with open('sha', 'w') as sha_file:
             sha_file.write(sha)
         print()
-        print('Rerunning the new entrypoint just in case')
+        print('### Rerunning the new entrypoint just in case ###')
         __import__('entrypoint').entry()
+        print('### Finished rerunning the new entrypoint ###')
         print()
     print('Checking if need to rebuild...')
     try:
@@ -57,8 +59,8 @@ def entry():
             read_checksum = checksum_file.read().strip()
     except FileNotFoundError:
         read_checksum = 'null'
-    checksum = path_checksum(["Launcher/src", "Launcher/pom.xml"])
-    print(f'Comparing directory checksums of ["Launcher/src", "Launcher/pom.xml"] {checksum} and {read_checksum}')
+    checksum = path_checksum(['Launcher/src', 'Launcher/pom.xml', 'config.json'])
+    print(f'Comparing directory checksums of relevant files: {checksum} and {read_checksum}')
     if read_checksum != checksum:
         print('Building...')
         exe_name = __import__('Launcher.build_launcher').build_launcher.build()

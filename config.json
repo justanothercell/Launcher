@@ -1,9 +1,14 @@
 {
     "java_path": "C:\\Users\\Christopher\\.jdks\\openjdk-17.0.2\\bin\\java.exe",
+    "server": "https://www.thisserver.com",
     "launcher": {
         "name": "Test",
         "title": "Test Launcher",
         "icon_png": "res/icon.png",
         "icon_ico": "res/icon.ico"
+    },
+    "app":  {
+        "download_url": "",
+        "version_url": ""
     }
 }

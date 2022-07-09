@@ -1,7 +1,7 @@
-from Launcher.app import app as application
+from Launcher.app import app
 import entrypoint
 
 entrypoint.entry()
 
 if __name__ == '__main__':
-    application.run()
+    app.run()
