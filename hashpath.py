@@ -8,17 +8,19 @@ def path_checksum(paths):
         for filename in sorted(filenames):
             path = path_join(dirname, filename)
             if isfile(path):
+                checksum.update(path)
                 print(path)
                 fh = open(path, 'rb')
                 while 1:
                     buf = fh.read(4096)
-                    if not buf : break
+                    if not buf: break
                     checksum.update(buf)
                 fh.close()
 
     chksum = hashlib.sha1()
 
     for path in sorted([normpath(f) for f in paths]):
+        print('is?', path)
         if path_exists(path):
             if isdir(path):
                 walk(path, _update_checksum, chksum)
