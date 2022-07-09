@@ -19,6 +19,8 @@ def build():
     try:
         print('=== Building Installer ===')
         print()
+        # done before chdiring into Launcher
+        launcher_ver = launcher_version()
         os.chdir('Launcher')
 
         print('Loading config.json')
@@ -40,7 +42,7 @@ def build():
 
         with open('src/main/resources/data.json', 'w') as data_file:
             json.dump({
-                'full_version': launcher_version(),
+                'full_version': launcher_ver,
                 'name': launcher_name,
                 'title': launcher_title
             }, data_file, indent=4)
