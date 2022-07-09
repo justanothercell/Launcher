@@ -56,11 +56,11 @@ def entry():
     print(f'Comparing directory checksums of ["Launcher/src", "Launcher/pom.xml"] {checksum} and {read_checksum}')
     if read_checksum != checksum:
         print('Building...')
-        fname = __import__('Launcher.build_launcher').build_launcher.build()
+        exe_name = __import__('Launcher.build_launcher').build_launcher.build()
         print('Copying executable to static')
         if not os.path.exists('static'):
             os.mkdir('static')
-        shutil.copy(f'Launcher/target/{fname}', f'static/{fname}')
+        shutil.copy(f'Launcher/target/{exe_name}', f'static/{exe_name}')
         with open('checksum', 'w') as checksum_file:
             checksum_file.write(checksum)
         print()
