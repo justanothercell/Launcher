@@ -1,8 +1,28 @@
 import os
-import shutil
-import urllib.request
 
-import requests
+requirements = [
+    'certifi==2022.6.15',
+    'charset-normalizer==2.1.0',
+    'click==8.1.3',
+    'colorama==0.4.5',
+    'Flask==2.1.2',
+    'idna==3.3',
+    'itsdangerous==2.1.2',
+    'Jinja2==3.1.2',
+    'MarkupSafe==2.1.1',
+    'requests==2.28.1',
+    'urllib3==1.26.10',
+    'Werkzeug==2.1.2'
+]
+
+with open('requirements.txt', 'w') as req:
+    req.write('\n'.join(requirements))
+
+print('Installing requirements...')
+os.system(f'pip install -r requirements.txt')
+print()
+
+import urllib.request
 
 if __name__ == '__main__':
     print('Starting...')

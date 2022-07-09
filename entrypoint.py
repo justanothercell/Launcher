@@ -3,8 +3,6 @@ import shutil
 
 import requests
 
-from Launcher.hashpath import path_checksum
-
 
 def entry():
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -55,7 +53,7 @@ def entry():
             read_checksum = checksum_file.read().strip()
     except FileNotFoundError:
         read_checksum = 'null'
-    checksum = path_checksum(['Launcher/src', 'Launcher/pom.xml', 'config.json'])
+    checksum = __import__('Launcher.hashpath').hashpath.path_checksum(['Launcher/src', 'Launcher/pom.xml', 'config.json'])
     print(f'Comparing directory checksums of relevant files: {checksum} and {read_checksum}')
     if read_checksum != checksum:
         print('Building...')
