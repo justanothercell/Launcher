@@ -115,7 +115,7 @@ public class Main {
 
     public static void overrideLauncher(){
         try {
-            Files.copy(Paths.get("data/updater.exe"), Paths.get("GladiatronLauncher.exe"), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(Paths.get("data/updater.exe"), Paths.get(Data.get("name") + ".exe"), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             Helper.showException(e);
             System.exit(1);
@@ -127,7 +127,7 @@ public class Main {
         }
         Runtime rt = Runtime.getRuntime();
         try {
-            rt.exec("cmd /c GladiatronLauncher.exe");
+            rt.exec("cmd /c " + Data.get("name") + ".exe");
         } catch (IOException e) {
             Helper.showException(e);
             System.exit(1);
