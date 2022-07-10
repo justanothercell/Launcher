@@ -104,7 +104,7 @@ public class Main {
 
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("data/version", true));
-                writer.write(applicationVersion);
+                writer.write(gameVersion.getString("version"));
                 writer.close();
             } catch (IOException e) {
                 Helper.showException(e);
