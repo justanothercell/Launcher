@@ -1,4 +1,6 @@
 # Launcher
+**NOTE: This does currently not work on PythonAynwhere.com (or any other server apart from localhost on my machine). Reason: The maven build command. The maven command is copied from the ide, but of cours eis configured for my local machine. apart from that this works.**
+
  A launcher to auto update your application
 
 
